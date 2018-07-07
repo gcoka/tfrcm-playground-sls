@@ -1,0 +1,71 @@
+version: 2
+jobs :
+  build:
+    docker:
+      - image: gemcook/sls:latest
+    environment:
+      GOPATH: /home/node/go
+    # TODO: プロジェクトのリポジトリ名に合わせる
+    working_directory: /home/node/go/src/github.com/gemcook/playground-sls
+    steps:
+      - checkout
+
+      - run:
+          name: Go言語情報表示
+          command: |
+            echo go version \"$(go version)"\
+            echo go env \"$(go env)"\
+
+      - run:
+          name: 各種情報表示
+          command: |
+            echo node \"$(node -v)\"
+            echo yarn \"$(yarn --version)\"
+            echo python \"$(python3 --version)\"
+            echo awscli \"$(aws --version)\"
+            echo pwd \"$(pwd)\"
+            echo yarn cache dir \"$(yarn cache dir)\"
+            echo sls version \"$(sls version)\"
+
+      - run:
+          name: Go 依存パッケージのインストール
+          command: (cd ./go && dep ensure)
+
+      - run:
+          name: Go Lint
+          command: |
+            (
+              cd ./go
+              go list ./... | xargs golint -set_exit_status
+	      go vet ./...
+            )
+
+      - run:
+          name: Go Test
+          command: (cd ./go && go test -race ./...)
+
+      # TODO: make build でビルド処理が行われるようにMakefileを準備する
+      - run:
+          name: Go Build
+          command: (cd ./go && make build)
+
+      - run:
+          name: Serverless Go デプロイ
+          command: |
+            (
+              cd ./go
+              echo "${CIRCLE_BRANCH}"
+
+              # ブランチがdevelop, release, demo, master のいずれかならばデプロイコマンドを実行する
+              if [ "${CIRCLE_BRANCH}" == "develop" ]; then
+                make deploy STAGE=develop
+              elif [ "${CIRCLE_BRANCH}" == "release" ]; then
+                make deploy STAGE=release
+              elif [ "${CIRCLE_BRANCH}" == "demo" ]; then
+                make deploy STAGE=demo
+              elif [ "${CIRCLE_BRANCH}" == "master" ]; then
+                make deploy STAGE=master
+              else
+                echo 'skip serverless Go deploy'
+              fi
+            )

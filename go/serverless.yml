@@ -1,0 +1,30 @@
+service: playground-sls-go
+
+custom:
+  defaultStage: local
+  stage:
+    local: ${file(./../stage/local.yml)}
+    develop: ${file(./../stage/develop.yml)}
+    release: ${file(./../stage/release.yml)}
+    master: ${file(./../stage/master.yml)}
+
+provider:
+  name: aws
+  runtime: go1.x
+  stage: ${opt:stage, self:custom.defaultStage}
+  region: eu-west-3
+  environment:
+    REGION: ${self:provider.region}
+    STAGE: ${self:custom.stage.${self:provider.stage}.stage}
+
+package:
+  exclude:
+    - ./**
+  include:
+    - ./bin/**
+
+functions:
+  sayHello:
+    handler: bin/sayHello
+  # postMessage:
+  #   handler: bin/post_message
