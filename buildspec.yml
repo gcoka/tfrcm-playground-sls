@@ -1,0 +1,55 @@
+version: 0.2
+
+phases:
+  install:
+    commands:
+      - (cd ./node && yarn install --frozen-lockfile --non-interactive)
+  pre_build:
+    commands:
+      - ls -a
+      - mkdir -p $GOPATH/src/github.com/gemcook/ki-de-sls
+      - mv * $GOPATH/src/github.com/gemcook/ki-de-sls/.
+      - cd $GOPATH/src/github.com/gemcook/ki-de-sls
+      - echo pwd \"$(pwd)\"
+      - echo BRANCH $BRANCH
+      - echo GOPATH $GOPATH
+      - echo node \"$(node -v)\"
+      - echo yarn \"$(yarn --version)\"
+      - echo python \"$(python3 --version)\"
+      - echo awscli \"$(aws --version)\"
+      - echo yarn cache dir \"$(yarn cache dir)\"
+      - echo sls version \"$(sls version)\"
+      - echo go version \"$(go version)"\
+      - echo go env \"$(go env)"\
+  build:
+    commands:
+      - echo $BRANCH
+      - pwd
+      # Node build & deploy
+      - |
+        (
+          cd ./node
+          if [ "${BRANCH}" == "develop" ]; then
+            sls deploy --stage develop
+          elif [ "${BRANCH}" == "release" ]; then
+            sls deploy --stage release
+          elif [ "${BRANCH}" == "master" ]; then
+            sls deploy --stage master
+          else
+            echo 'skip serverless Node deploy'
+          fi
+        )
+      # Go build & deploy
+      - |
+        (
+          cd ./go
+          if [ "${BRANCH}" == "develop" ]; then
+            make deploy OPT_STAGE=develop OPT_REGION=ap-northeast-1
+          elif [ "${BRANCH}" == "release" ]; then
+            make deploy OPT_STAGE=release OPT_REGION=ap-northeast-1
+          elif [ "${BRANCH}" == "master" ]; then
+            make deploy OPT_STAGE=master OPT_REGION=ap-northeast-1
+          else
+            echo 'skip serverless Go deploy'
+          fi
+        )

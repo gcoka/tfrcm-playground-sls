@@ -2,18 +2,121 @@
 
 
 [[projects]]
+  digest = "1:8b55da6790eeade578c1fd4ebaa5b0e641072172e1d743f3cb945ae73af463f9"
   name = "github.com/aws/aws-lambda-go"
   packages = [
+    "events",
     "lambda",
     "lambda/messages",
-    "lambdacontext"
+    "lambdacontext",
   ]
-  revision = "4d30d0ff60440c2d0480a15747c96ee71c3c53d4"
-  version = "v1.2.0"
+  pruneopts = ""
+  revision = "2d482ef09017ae953b1e8d5a6ddac5b696663a3c"
+  version = "v1.6.0"
+
+[[projects]]
+  digest = "1:442000ff5357e597ed9c1395c744aed4861c4f9be6808814d5ce7f0b931dceb0"
+  name = "github.com/aws/aws-sdk-go"
+  packages = [
+    "aws",
+    "aws/awserr",
+    "aws/awsutil",
+    "aws/client",
+    "aws/client/metadata",
+    "aws/corehandlers",
+    "aws/credentials",
+    "aws/credentials/ec2rolecreds",
+    "aws/credentials/endpointcreds",
+    "aws/credentials/stscreds",
+    "aws/csm",
+    "aws/defaults",
+    "aws/ec2metadata",
+    "aws/endpoints",
+    "aws/request",
+    "aws/session",
+    "aws/signer/v4",
+    "internal/sdkio",
+    "internal/sdkrand",
+    "internal/sdkuri",
+    "internal/shareddefaults",
+    "private/protocol",
+    "private/protocol/query",
+    "private/protocol/query/queryutil",
+    "private/protocol/rest",
+    "private/protocol/xml/xmlutil",
+    "service/sns",
+    "service/sts",
+  ]
+  pruneopts = ""
+  revision = "e21dfa909e14ce93f88f1f3505764bc4952a11be"
+  version = "v1.15.18"
+
+[[projects]]
+  branch = "master"
+  digest = "1:3ea362ce492b88a6c7b79f96188b6590b8f440b5b9026e9c4dde42b01f5439be"
+  name = "github.com/gemcook/example-sls-go"
+  packages = ["models"]
+  pruneopts = ""
+  revision = "72455929b3d49cc566b0d6e5795a7d90f205b904"
+
+[[projects]]
+  digest = "1:9273855308be24c3fa22e7d1b7c55418254f9b3f1cd21695a3877c1b54678d74"
+  name = "github.com/gemcook/pagination-go"
+  packages = ["."]
+  pruneopts = ""
+  revision = "a003489e042726ad24c6d5f5f296333f06c61cee"
+  version = "v0.1-alpha-3"
+
+[[projects]]
+  digest = "1:cd5bab9c9e23ffa6858eaa79dc827fd84bc24bc00b0cfb0b14036e393da2b1fa"
+  name = "github.com/go-ini/ini"
+  packages = ["."]
+  pruneopts = ""
+  revision = "5cf292cae48347c2490ac1a58fe36735fb78df7e"
+  version = "v1.38.2"
+
+[[projects]]
+  digest = "1:3b1fbd933be7ec836de1f88a61bbbacd2807680ca481ae42444d5ec04e8eac80"
+  name = "github.com/go-xorm/builder"
+  packages = ["."]
+  pruneopts = ""
+  revision = "dc8bf48f58fab2b4da338ffd25191905fd741b8f"
+  version = "v0.3.0"
+
+[[projects]]
+  digest = "1:762cf3f918a3b741c2c645ec1ea4faa34726e1a93054f045444afd7c0ab5edea"
+  name = "github.com/go-xorm/core"
+  packages = ["."]
+  pruneopts = ""
+  revision = "c10e21e7e1cec20e09398f2dfae385e58c8df555"
+  version = "v0.6.0"
+
+[[projects]]
+  digest = "1:339a721bf1b9245ec968a083653fa3ca93f5e5ad4b6f44df60c48f5d375c459a"
+  name = "github.com/go-xorm/xorm"
+  packages = ["."]
+  pruneopts = ""
+  revision = "d85bb4911c725a53b135fc12862748a41b6c07da"
+  version = "v0.7.0"
+
+[[projects]]
+  digest = "1:6f49eae0c1e5dab1dafafee34b207aeb7a42303105960944828c2079b92fc88e"
+  name = "github.com/jmespath/go-jmespath"
+  packages = ["."]
+  pruneopts = ""
+  revision = "0b12d6b5"
 
 [solve-meta]
   analyzer-name = "dep"
   analyzer-version = 1
-  inputs-digest = "aade89244f734c9363d131e4c1d41bd8c1519060c8519c09763168caf6e193f3"
+  input-imports = [
+    "github.com/aws/aws-lambda-go/events",
+    "github.com/aws/aws-lambda-go/lambda",
+    "github.com/aws/aws-sdk-go/aws/session",
+    "github.com/aws/aws-sdk-go/service/sns",
+    "github.com/gemcook/example-sls-go/models",
+    "github.com/gemcook/pagination-go",
+    "github.com/go-xorm/xorm",
+  ]
   solver-name = "gps-cdcl"
   solver-version = 1

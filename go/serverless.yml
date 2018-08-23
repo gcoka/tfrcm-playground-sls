@@ -1,6 +1,7 @@
-service: playground-sls-go
+service: tfrcm-palyground-sls-go
 
 custom:
+  projectName: tfrcm-palyground
   defaultStage: local
   stage:
     local: ${file(./../stage/local.yml)}
@@ -8,14 +9,26 @@ custom:
     release: ${file(./../stage/release.yml)}
     master: ${file(./../stage/master.yml)}
 
+frameworkVersion: '>=1.28.0 <2.0.0'
+
 provider:
   name: aws
   runtime: go1.x
   stage: ${opt:stage, self:custom.defaultStage}
-  region: eu-west-3
+  region: ap-northeast-1
   environment:
+    TZ: Asia/Tokyo
+    PROJECT_NAME: ${self:custom.projectName}
     REGION: ${self:provider.region}
     STAGE: ${self:custom.stage.${self:provider.stage}.stage}
+    HOST: ${self:custom.stage.${self:provider.stage}.host}
+    LOG_LEVEL: ${self:custom.stage.${self:provider.stage}.logLevel}
+  iamRoleStatements:
+    - Effect: 'Allow'
+      Action:
+        - 'SNS:CreateTopic'
+        - 'SNS:Publish'
+      Resource: '*'
 
 package:
   exclude:
@@ -24,7 +37,10 @@ package:
     - ./bin/**
 
 functions:
-  sayHello:
-    handler: bin/sayHello
-  # postMessage:
-  #   handler: bin/post_message
+  notificate_all:
+    handler: bin/notificate_all
+    events:
+      - http:
+          path: notificate-all
+          method: post
+          cors: true
