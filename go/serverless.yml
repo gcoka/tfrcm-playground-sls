@@ -46,6 +46,6 @@ functions:
     handler: bin/publish_all
     events:
       - http:
-          path: notificate-all
+          path: publish-all
           method: post
           cors: true
