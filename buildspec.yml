@@ -44,11 +44,11 @@ phases:
         (
           cd ./go
           if [ "${BRANCH}" == "develop" ]; then
-            make deploy-develop
+            make deploy OPT_STAGE=develop
           elif [ "${BRANCH}" == "release" ]; then
-            make deploy-release
+            make deploy OPT_STAGE=release
           elif [ "${BRANCH}" == "master" ]; then
-            make deploy-master
+            make deploy OPT_STAGE=master
           else
             echo 'skip serverless Go deploy'
           fi

@@ -17,17 +17,7 @@ clean:
 deploy-local: clean build
 	sls deploy --stage local --aws-profile $(PROFILE) --region $(REGION)
 
-.PHONY: deploy-develop
+.PHONY: deploy
 
-deploy-develop: clean build
-	sls deploy --stage develop --aws-profile $(PROFILE) --region $(REGION)
-
-.PHONY: deploy-release
-
-deploy-release: clean build
-	sls deploy --stage release --aws-profile $(PROFILE) --region $(REGION)
-
-.PHONY: deploy-master
-
-deploy-master: clean build
-	sls deploy --stage master --aws-profile $(PROFILE) --region $(REGION)
+deploy: clean build
+	sls deploy --stage $$(OPT_BRANCH) --region $(REGION)
