@@ -19,8 +19,8 @@ phases:
       - echo awscli \"$(aws --version)\"
       - echo yarn cache dir \"$(yarn cache dir)\"
       - echo sls version \"$(sls version)\"
-      - echo go version \"$(go version)"\
-      - echo go env \"$(go env)"\
+      # - echo go version \"$(go version)"\
+      # - echo go env \"$(go env)"\
   build:
     commands:
       - echo $BRANCH
