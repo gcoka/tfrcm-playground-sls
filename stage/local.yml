@@ -1,4 +1,0 @@
-stage: 'local'
-host: 'http://localhost:1206'
-prefix: '[local]'
-logLevel: debug

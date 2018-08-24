@@ -22,6 +22,11 @@ provider:
     REGION: ${self:provider.region}
     STAGE: ${self:custom.stage.${self:provider.stage}.stage}
     HOST: ${self:custom.stage.${self:provider.stage}.host}
+    PREFIX: ${self:custom.stage.${self:provider.stage}.prefix}
+    DATABASE_HOST: ${self:custom.stage.${self:provider.stage}.database.host}
+    DATABASE_USER: ${self:custom.stage.${self:provider.stage}.database.user}
+    DATABASE_PASSWORD: ${self:custom.stage.${self:provider.stage}.database.password}
+    DATABASE_NAME: ${self:custom.stage.${self:provider.stage}.database.database}
     LOG_LEVEL: ${self:custom.stage.${self:provider.stage}.logLevel}
   iamRoleStatements:
     - Effect: 'Allow'
