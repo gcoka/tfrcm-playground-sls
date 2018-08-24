@@ -5,7 +5,7 @@ PROFILE=gemcook
 
 build:
 	dep ensure -v
-	env GOOS=linux go build -ldflags="-s -w" -o bin/notificate_all handlers/notificate_all/main.go
+	env GOOS=linux go build -ldflags="-s -w" -o bin/publish_all handlers/publish_all/main.go
 
 .PHONY: clean
 

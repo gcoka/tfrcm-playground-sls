@@ -37,8 +37,8 @@ package:
     - ./bin/**
 
 functions:
-  notificate_all:
-    handler: bin/notificate_all
+  publish_all:
+    handler: bin/publish_all
     events:
       - http:
           path: notificate-all

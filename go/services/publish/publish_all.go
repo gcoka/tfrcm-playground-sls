@@ -1,27 +1,13 @@
-package main
+package publish
 
 import (
-	"encoding/json"
-	"log"
-	"net/http"
-
-	"github.com/aws/aws-lambda-go/events"
-	"github.com/aws/aws-lambda-go/lambda"
 	"github.com/aws/aws-sdk-go/aws/session"
 	"github.com/aws/aws-sdk-go/service/sns"
 	"github.com/gemcook/playground-sls/go/models"
-	"github.com/gemcook/playground-sls/go/utils"
 )
 
-// Handler handles
-func Handler(event events.APIGatewayProxyRequest) (events.APIGatewayProxyResponse, error) {
-	var data models.Notification
-
-	err := json.Unmarshal([]byte(event.Body), &data)
-	if err != nil {
-		return utils.NewErrorResponse(err, http.StatusBadRequest)
-	}
-
+// PublishAll is SNS Publish Function
+func PublishAll(data *models.Publish) (*string, error) {
 	sess, err := session.NewSession()
 	if err != nil {
 		panic(err)
@@ -37,13 +23,10 @@ func Handler(event events.APIGatewayProxyRequest) (events.APIGatewayProxyRespons
 		Name: &topicName,
 	}
 
-	topicARN, err := svc.CreateTopic(topicInput)
+	topicArnOutput, err := svc.CreateTopic(topicInput)
 	if err != nil {
-		panic(err)
+		return nil, err
 	}
-
-	log.Println(topicARN)
-	log.Println(`{"message":"` + topicName + `"}`)
 
 	// TODO: targetUsersのメールアドレスでApplicationのエンドポイントARNを取得する。
 	// applicationInput := &sns.ListPlatformApplicationsInput{}
@@ -56,23 +39,17 @@ func Handler(event events.APIGatewayProxyRequest) (events.APIGatewayProxyRespons
 	// TODO: m_messagesからsend-tommorowのメッセージを取得する。
 
 	// TODO: メッセージをPublishする。
-	message := "Hello"
-	tArn := "arn:aws:sns:ap-northeast-1:598003641956:tfrcm-push-notification-all"
+	message := data.Message
+
 	publishInput := &sns.PublishInput{
 		Message:  &message,
-		TopicArn: &tArn,
+		TopicArn: topicArnOutput.TopicArn,
 	}
 
-	publishResult, err := svc.Publish(publishInput)
+	_, err = svc.Publish(publishInput)
 	if err != nil {
-		panic(err)
+		return nil, err
 	}
 
-	log.Println(publishResult)
-
-	return utils.NewResponse(`{"message":"`+topicName+`"}`, http.StatusOK)
-}
-
-func main() {
-	lambda.Start(Handler)
+	return &topicName, nil
 }
