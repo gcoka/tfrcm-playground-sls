@@ -10,6 +10,7 @@ phases:
       - mkdir -p $GOPATH/src/github.com/tfrcm/playground-sls
       - mv * $GOPATH/src/github.com/tfrcm/playground-sls/.
       - cd $GOPATH/src/github.com/tfrcm/playground-sls
+      - ls -a
       - echo pwd \"$(pwd)\"
       - echo BRANCH $BRANCH
       - echo GOPATH $GOPATH
