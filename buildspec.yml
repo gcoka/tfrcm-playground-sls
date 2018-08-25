@@ -7,10 +7,6 @@ phases:
   pre_build:
     commands:
       - ls -a
-      # - mkdir -p $GOPATH/src/github.com/tfrcm/playground-sls
-      # - mv * $GOPATH/src/github.com/tfrcm/playground-sls/.
-      # - cd $GOPATH/src/github.com/tfrcm/playground-sls
-      # - ls -a
       - echo pwd \"$(pwd)\"
       - echo BRANCH $BRANCH
       - echo GOPATH $GOPATH
@@ -24,12 +20,25 @@ phases:
       - echo go env \"$(go env)\"
   build:
     commands:
-      - echo $BRANCH
-      - pwd
-      - cd ./go
-      - pwd
-      - ls -a
-      - make deploy-master
+      # Node build & deploy
+      - |
+        (
+          cd ./node
+          if [ "${BRANCH}" == "develop" ]; then
+            sls deploy --stage develop
+          elif [ "${BRANCH}" == "release" ]; then
+            sls deploy --stage release
+          elif [ "${BRANCH}" == "master" ]; then
+            sls deploy --stage master
+          else
+            echo 'skip serverless Node deploy'
+          fi
+        )
+      # - echo BRANCH_NAME=$BRANCH
+      # - pwd
+      # - cd ./go
+      # - ls -a
+      # - make deploy OPT_BRANCH=master
       # - |
       #   (
       #     cd ./go

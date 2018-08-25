@@ -1,4 +1,4 @@
-service: tfrcm-palyground-sls-go
+service: tfrcm-playground-sls-node
 
 frameworkVersion: '>=1.28.0 <2.0.0'
 
@@ -13,7 +13,7 @@ custom:
 
 provider:
   name: aws
-  runtime: go1.x
+  runtime: nodejs8.10
   stage: ${opt:stage, self:custom.defaultStage}
   region: ap-northeast-1
   environment:
@@ -28,24 +28,7 @@ provider:
     DATABASE_PASSWORD: ${self:custom.stage.${self:provider.stage}.database.password}
     DATABASE_NAME: ${self:custom.stage.${self:provider.stage}.database.database}
     LOG_LEVEL: ${self:custom.stage.${self:provider.stage}.logLevel}
-  iamRoleStatements:
-    - Effect: 'Allow'
-      Action:
-        - 'SNS:CreateTopic'
-        - 'SNS:Publish'
-      Resource: '*'
-
-package:
-  exclude:
-    - ./**
-  include:
-    - ./bin/**
 
 functions:
-  publish_all:
-    handler: bin/publish_all
-    events:
-      - http:
-          path: publish-all
-          method: post
-          cors: true
+  hello:
+    handler: handler.hello
