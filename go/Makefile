@@ -21,3 +21,6 @@ deploy-local: clean build
 
 deploy: clean build
 	sls deploy --stage $$(OPT_BRANCH) --region $(REGION)
+
+deploy-master: clean build
+	sls deploy --stage master --region $(REGION)

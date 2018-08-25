@@ -29,6 +29,7 @@ phases:
       - cd ./go
       - pwd
       - ls -a
+      - make deploy-master
       # - |
       #   (
       #     cd ./go
