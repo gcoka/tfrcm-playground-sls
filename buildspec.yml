@@ -26,31 +26,19 @@ phases:
     commands:
       - echo $BRANCH
       - pwd
-      # Node build & deploy
+      - cd ./go
+      - pwd
+      - ls -a
       # - |
       #   (
-      #     cd ./node
+      #     cd ./go
       #     if [ "${BRANCH}" == "develop" ]; then
-      #       sls deploy --stage develop
+      #       make deploy OPT_BRANCH=develop
       #     elif [ "${BRANCH}" == "release" ]; then
-      #       sls deploy --stage release
+      #       make deploy OPT_BRANCH=release
       #     elif [ "${BRANCH}" == "master" ]; then
-      #       sls deploy --stage master
+      #       make deploy OPT_BRANCH=master
       #     else
-      #       echo 'skip serverless Node deploy'
+      #       echo 'skip serverless Go deploy'
       #     fi
       #   )
-      # Go build & deploy
-      - |
-        (
-          cd ./go
-          if [ "${BRANCH}" == "develop" ]; then
-            make deploy OPT_BRANCH=develop
-          elif [ "${BRANCH}" == "release" ]; then
-            make deploy OPT_BRANCH=release
-          elif [ "${BRANCH}" == "master" ]; then
-            make deploy OPT_BRANCH=master
-          else
-            echo 'skip serverless Go deploy'
-          fi
-        )
