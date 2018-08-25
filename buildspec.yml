@@ -7,9 +7,9 @@ phases:
   pre_build:
     commands:
       - ls -a
-      - mkdir -p $GOPATH/src/github.com/gemcook/playground-sls
-      - mv * $GOPATH/src/github.com/gemcook/playground-sls/.
-      - cd $GOPATH/src/github.com/gemcook/playground-sls
+      # - mkdir -p $GOPATH/src/github.com/gemcook/playground-sls
+      # - mv * $GOPATH/src/github.com/gemcook/playground-sls/.
+      # - cd $GOPATH/src/github.com/gemcook/playground-sls
       - echo pwd \"$(pwd)\"
       - echo BRANCH $BRANCH
       - echo GOPATH $GOPATH
@@ -44,11 +44,11 @@ phases:
         (
           cd ./go
           if [ "${BRANCH}" == "develop" ]; then
-            make deploy OPT_STAGE=develop
+            make deploy OPT_BRANCH=develop
           elif [ "${BRANCH}" == "release" ]; then
-            make deploy OPT_STAGE=release
+            make deploy OPT_BRANCH=release
           elif [ "${BRANCH}" == "master" ]; then
-            make deploy OPT_STAGE=master
+            make deploy OPT_BRANCH=master
           else
             echo 'skip serverless Go deploy'
           fi
