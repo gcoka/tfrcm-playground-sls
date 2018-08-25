@@ -15,19 +15,7 @@ provider:
   name: aws
   runtime: nodejs8.10
   stage: ${opt:stage, self:custom.defaultStage}
-  region: ap-northeast-1
-  environment:
-    TZ: Asia/Tokyo
-    PROJECT_NAME: ${self:custom.projectName}
-    REGION: ${self:provider.region}
-    STAGE: ${self:custom.stage.${self:provider.stage}.stage}
-    HOST: ${self:custom.stage.${self:provider.stage}.host}
-    PREFIX: ${self:custom.stage.${self:provider.stage}.prefix}
-    DATABASE_HOST: ${self:custom.stage.${self:provider.stage}.database.host}
-    DATABASE_USER: ${self:custom.stage.${self:provider.stage}.database.user}
-    DATABASE_PASSWORD: ${self:custom.stage.${self:provider.stage}.database.password}
-    DATABASE_NAME: ${self:custom.stage.${self:provider.stage}.database.database}
-    LOG_LEVEL: ${self:custom.stage.${self:provider.stage}.logLevel}
+  region: us-east-1
 
 functions:
   hello:
@@ -36,3 +24,7 @@ functions:
       - http:
           path: hello
           method: get
+  edge:
+    handler: src/handlers/edge.edge
+    memorySize: 128
+    timeout: 4

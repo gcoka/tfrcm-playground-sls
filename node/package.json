@@ -1,5 +1,18 @@
 {
   "devDependencies": {
+    "babel-eslint": "^8.2.6",
+    "eslint": "^5.4.0",
+    "eslint-config-fbjs": "^2.0.1",
+    "eslint-config-gemcook": "^1.0.5",
+    "eslint-config-prettier": "^3.0.1",
+    "eslint-plugin-babel": "^5.1.0",
+    "eslint-plugin-flowtype": "^2.50.0",
+    "eslint-plugin-import": "^2.14.0",
+    "eslint-plugin-jsx-a11y": "^6.1.1",
+    "eslint-plugin-prettier": "^2.6.2",
+    "eslint-plugin-react": "^7.11.1",
+    "eslint-plugin-relay": "^0.0.27",
+    "prettier": "^1.14.2",
     "serverless-plugin-cloudfront-lambda-edge": "^2.1.0"
   }
 }
