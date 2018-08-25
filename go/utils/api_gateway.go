@@ -10,7 +10,7 @@ import (
 	"github.com/aws/aws-lambda-go/events"
 	"github.com/gemcook/pagination-go"
 
-	"github.com/gemcook/example-sls-go/models"
+	"github.com/gemcook/playground-sls/go/models"
 )
 
 // NewResponse はレスポンス情報を返す

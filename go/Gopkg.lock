@@ -52,14 +52,6 @@
   version = "v1.15.19"
 
 [[projects]]
-  branch = "master"
-  digest = "1:3ea362ce492b88a6c7b79f96188b6590b8f440b5b9026e9c4dde42b01f5439be"
-  name = "github.com/gemcook/example-sls-go"
-  packages = ["models"]
-  pruneopts = ""
-  revision = "72455929b3d49cc566b0d6e5795a7d90f205b904"
-
-[[projects]]
   digest = "1:9273855308be24c3fa22e7d1b7c55418254f9b3f1cd21695a3877c1b54678d74"
   name = "github.com/gemcook/pagination-go"
   packages = ["."]
@@ -130,7 +122,6 @@
     "github.com/aws/aws-lambda-go/lambda",
     "github.com/aws/aws-sdk-go/aws/session",
     "github.com/aws/aws-sdk-go/service/sns",
-    "github.com/gemcook/example-sls-go/models",
     "github.com/gemcook/pagination-go",
     "github.com/go-sql-driver/mysql",
     "github.com/go-xorm/core",
