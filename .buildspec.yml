@@ -24,7 +24,7 @@ phases:
       - |
         (
           cd ./node
-          if [ "${BRANCH}" == "develop" ]; then
+          if [ "${BRANCH}" == "develop" ]; thcden
             sls deploy --stage develop
           elif [ "${BRANCH}" == "release" ]; then
             sls deploy --stage release

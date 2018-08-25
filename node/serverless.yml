@@ -31,4 +31,8 @@ provider:
 
 functions:
   hello:
-    handler: handler.hello
+    handler: src/handlers/hello.hello
+    events:
+      - http:
+          path: hello
+          method: get

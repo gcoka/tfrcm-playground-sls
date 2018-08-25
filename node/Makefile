@@ -4,7 +4,7 @@ PROFILE=gemcook
 .PHONY: deploy-manual
 
 deploy-manual:
-	sls deploy --stage $(OPT_BRANCH) --region $(REGION) --profile $(PROFILE)
+	sls deploy --stage $(OPT_BRANCH) --region $(REGION) --aws-profile $(PROFILE)
 
 
 .PHONY: deploy
