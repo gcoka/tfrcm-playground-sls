@@ -7,9 +7,9 @@ phases:
   pre_build:
     commands:
       - ls -a
-      - mkdir -p $GOPATH/src/github.com/gemcook/playground-sls
-      - mv * $GOPATH/src/github.com/gemcook/playground-sls/.
-      - cd $GOPATH/src/github.com/gemcook/playground-sls
+      - mkdir -p $GOPATH/src/github.com/tfrcm/playground-sls
+      - mv * $GOPATH/src/github.com/tfrcm/playground-sls/.
+      - cd $GOPATH/src/github.com/tfrcm/playground-sls
       - echo pwd \"$(pwd)\"
       - echo BRANCH $BRANCH
       - echo GOPATH $GOPATH
