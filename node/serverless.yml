@@ -16,6 +16,8 @@ provider:
   runtime: nodejs8.10
   stage: ${opt:stage, self:custom.defaultStage}
   region: us-east-1
+  memorySize: 128
+  timeout: 1
 
 functions:
   hello:
@@ -26,5 +28,3 @@ functions:
           method: get
   edge:
     handler: src/handlers/edge.edge
-    memorySize: 128
-    timeout: 4
